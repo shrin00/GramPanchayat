@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "741830586239",
+    "project_id": "gramlogin-d4c33",
+    "storage_bucket": "gramlogin-d4c33.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741830586239:android:709285279771b50752f44a",
+        "android_client_info": {
+          "package_name": "com.example.gramlogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741830586239-hnhpf8udna7u2nf4s5i45sfp6t1dl3c1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8vZmsHODGlC0wLOabNXQkfXhSea2AINQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741830586239-hnhpf8udna7u2nf4s5i45sfp6t1dl3c1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
