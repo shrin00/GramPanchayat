@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "741830586239",
-    "project_id": "gramlogin-d4c33",
-    "storage_bucket": "gramlogin-d4c33.appspot.com"
+    "project_number": "110698892480",
+    "project_id": "gram-panchayat-4d263",
+    "storage_bucket": "gram-panchayat-4d263.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:741830586239:android:709285279771b50752f44a",
+        "mobilesdk_app_id": "1:110698892480:android:844e61f5aab37a837ef125",
         "android_client_info": {
           "package_name": "com.example.gramlogin"
         }
       },
       "oauth_client": [
         {
-          "client_id": "741830586239-hnhpf8udna7u2nf4s5i45sfp6t1dl3c1.apps.googleusercontent.com",
+          "client_id": "110698892480-rv760ieejqmnhlavq09cf2uli67qpbpv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gramlogin",
+            "certificate_hash": "8516e534e2de135a470f5fadaf724947d0a3e2e6"
+          }
+        },
+        {
+          "client_id": "110698892480-7p4fhq6lbdn16b7iek47nvumnhapsgdm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC8vZmsHODGlC0wLOabNXQkfXhSea2AINQ"
+          "current_key": "AIzaSyDq69YgbkltTs5EG8Z4LIeh9rAAg4LMex0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "741830586239-hnhpf8udna7u2nf4s5i45sfp6t1dl3c1.apps.googleusercontent.com",
+              "client_id": "110698892480-7p4fhq6lbdn16b7iek47nvumnhapsgdm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
