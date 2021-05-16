@@ -1,11 +1,18 @@
 package com.example.gramlogin;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -13,10 +20,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
-    TabItem  tab_services, tab_schemes, tab_news;
-    ViewPager viewPager;
-    PageAdapter pageAdapter;
+    private TabLayout tabLayout;
+    private TabItem  tab_services, tab_schemes, tab_news;
+    private ViewPager viewPager;
+    private PageAdapter pageAdapter;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         tab_schemes = (TabItem) findViewById(R.id.tabitem_schemes);
         tab_news = (TabItem) findViewById(R.id.tabitem_news);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
+        toolbar = (Toolbar) findViewById(R.id.id_toolbar);
+        setSupportActionBar(toolbar);
 
         //pageadapter class instence
         pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -62,4 +72,31 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(new Intent(getApplicationContext(),loginpage1.class));
 //        finish();
 //    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item_account:
+                Toast.makeText(this, "Account is selected", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.item_complaint:
+                Toast.makeText(MainActivity.this, "Complaint is clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.item_pdo:
+                Toast.makeText(MainActivity.this, "PDO is clicked", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

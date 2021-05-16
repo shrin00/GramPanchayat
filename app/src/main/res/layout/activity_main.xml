@@ -7,8 +7,10 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    //Tablayout
+    <include layout="@layout/toolbar"
+        android:id="@+id/id_toolbar"/>
 
+<!--    //Tablayout-->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout1"
         android:layout_width="match_parent"
@@ -16,9 +18,10 @@
         android:background="@color/Lightyellow"
         app:tabIndicatorColor="@color/DarkYello"
         app:tabSelectedTextColor="#191717"
-        app:tabTextColor="@color/black">
+        app:tabTextColor="@color/black"
+        android:elevation="8dp">
 
-        //tabItems
+<!--        //tabItems-->
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabitem_services"
@@ -40,7 +43,7 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    //viewpager
+<!--    //viewpager-->
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
