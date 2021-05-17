@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".Pdo_main"
+    android:orientation="vertical"
+    android:paddingTop="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_service"
+        android:textSize="15sp"
+        android:textColor="@color/purple_700"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/id_add_services" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_schemes"
+        android:textSize="15sp"
+        android:textColor="@color/purple_700"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/id_add_schemes"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_news"
+        android:textSize="15sp"
+        android:textColor="@color/purple_700"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/id_add_news"/>
+
+</LinearLayout>
