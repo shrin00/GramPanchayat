@@ -6,52 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".Account">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="156dp"
-        android:layout_height="30dp"
-        android:text="Dummy"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.203" />
-
-    <TextView
-        android:id="@+id/id_userEmail"
-        android:layout_width="153dp"
-        android:layout_height="25dp"
-        android:text="Dummy"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.397" />
-
-    <TextView
-        android:id="@+id/id_userId"
-        android:layout_width="157dp"
-        android:layout_height="27dp"
-        android:text="Dummy"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/id_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
-        android:id="@+id/id_logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.689" />
+        app:layout_constraintVertical_bias="0.887" />
+
+    <LinearLayout
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.248">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+            android:textAllCaps="true"
+            android:textSize="25sp"
+            android:layout_margin="10dp"
+            android:id="@+id/id_profileName"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact No"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:id="@+id/id_profileContactNo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date of birth"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:id="@+id/id_profileDob"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sex"
+            android:textAllCaps="true"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:id="@+id/id_profileSex"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textAllCaps="true"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:id="@+id/id_profileEmail"/>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

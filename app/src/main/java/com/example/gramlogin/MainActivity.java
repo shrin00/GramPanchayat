@@ -92,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.item_account:
                 Intent acc = new Intent(MainActivity.this, Account.class);
-                acc.putExtra("email", mFirebaseAuth.getCurrentUser().getEmail());
-                acc.putExtra("UID", mFirebaseAuth.getCurrentUser().getUid());
                 startActivity(acc);
 
                 Toast.makeText(this, "Account is selected", Toast.LENGTH_SHORT).show();

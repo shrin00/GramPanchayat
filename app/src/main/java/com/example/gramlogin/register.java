@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,16 +22,22 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.BatchUpdateException;
 
 public class register extends AppCompatActivity {
 
-    private TextInputLayout tEmail, tPassword, tConfirmPassword;
+    private TextInputLayout tEmail, tPassword, tConfirmPassword, tName, tContact, tDob, tSex;
     private ProgressBar pb;
     private Button register;
     private TextView alSignIn;
+    private String userId;
+
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference userProfileReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +45,17 @@ public class register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
 
+        //database
+        database = FirebaseDatabase.getInstance();
+        userProfileReference = database.getReference().child("users");
+
         tEmail = (TextInputLayout) findViewById(R.id.id_emailRegister);
         tPassword = (TextInputLayout) findViewById(R.id.id_pwdRegister);
         tConfirmPassword = (TextInputLayout) findViewById(R.id.id_confirmpwdRegister);
+        tName = (TextInputLayout) findViewById(R.id.id_userName);
+        tContact = (TextInputLayout) findViewById(R.id.id_contactNo);
+        tDob = (TextInputLayout) findViewById(R.id.id_dob);
+        tSex = (TextInputLayout) findViewById(R.id.id_sex);
         pb = (ProgressBar) findViewById(R.id.progressBar2);
         register = (Button) findViewById(R.id.id_register);
         alSignIn = (TextView) findViewById(R.id.id_signInRegister);
@@ -52,6 +67,7 @@ public class register extends AppCompatActivity {
                 String email = tEmail.getEditText().getText().toString().trim();
                 String password = tPassword.getEditText().getText().toString().trim();
                 String cPwd = tConfirmPassword.getEditText().getText().toString().trim();
+
 
                 if(TextUtils.isEmpty(email)){
                     tEmail.setError("Email is required");
@@ -70,10 +86,15 @@ public class register extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             pb.setVisibility(View.INVISIBLE);
+
+                                            userId = mAuth.getCurrentUser().getUid();
+                                            writeNewUser(userId);
+
                                             tEmail.getEditText().setText("");
                                             tPassword.getEditText().setText("");
                                             tConfirmPassword.getEditText().setText("");
                                             Toast.makeText(register.this, "Register successful, Please Login", Toast.LENGTH_SHORT).show();
+                                            mAuth.signOut();
                                             startActivity(new Intent(register.this, loginpage1.class));
                                         } else {
                                             // If sign in fails, display a message to the user.
@@ -107,5 +128,15 @@ public class register extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void writeNewUser(String userId){
+        String name = tName.getEditText().getText().toString();
+        String contactNo = tContact.getEditText().getText().toString();
+        String dob = tDob.getEditText().getText().toString();
+        String sex = tSex.getEditText().getText().toString();
+
+        UserProfile user = new UserProfile(name, contactNo, dob, sex, "user");
+        userProfileReference.child(userId).setValue(user);
     }
 }
