@@ -15,63 +15,65 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class loginpage1 extends AppCompatActivity {
-    EditText Email,Password;
-    Button LoginBtn;
-    TextView mCreateBtn;
-    ProgressBar progressBar;
-    FirebaseAuth fAuth;
+
+    private TextInputLayout tEmail, tPassword;
+    private  Button tLogin;
+    private  TextView mCreateBtn;
+    private  ProgressBar pb;
+    private FirebaseAuth mAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginpage1);
+        mAuth = FirebaseAuth.getInstance();
 
-        Email=findViewById(R.id.editTextTextEmailAddress);
-        Password=findViewById(R.id.editTextTextPassword);
-        progressBar=findViewById(R.id.progressBar);
-        LoginBtn=findViewById(R.id.button);
-        fAuth=FirebaseAuth.getInstance();
-        mCreateBtn=findViewById(R.id.textView3);
+        tEmail = (TextInputLayout) findViewById(R.id.id_emailLogin);
+        tPassword = (TextInputLayout) findViewById(R.id.id_pwdLogin);
+        tLogin = (Button) findViewById(R.id.id_login);
+        mCreateBtn=findViewById(R.id.id_registerHere);
+        pb = (ProgressBar) findViewById(R.id.progressBar3);
 
-        LoginBtn.setOnClickListener(new View.OnClickListener(){
-
+        tLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email=Email.getText().toString().trim();
-                String password=Password.getText().toString().trim();
+                String email = tEmail.getEditText().getText().toString().trim();
+                String password = tPassword.getEditText().getText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
-                    Email.setError("Email is required");
+                    tEmail.setError("Email is required");
+                }else if(TextUtils.isEmpty(password)){
+                    tPassword.setError("Password is required");
+                }else if(password.length()<=6){
+                    tPassword.setError("Password must have more than 6 characters");
+                }else {
+                    pb.setVisibility(View.VISIBLE);
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(loginpage1.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()){
+                                        pb.setVisibility(View.INVISIBLE);
+                                        startActivity(new Intent(loginpage1.this, MainActivity.class));
+                                    }else{
+                                        pb.setVisibility(View.INVISIBLE);
+                                        tEmail.getEditText().setText("");
+                                        tPassword.getEditText().setText("");
+                                        Toast.makeText(loginpage1.this, "Invalid Email or Password", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                 }
-                if(TextUtils.isEmpty(password)){
-                    Password.setError("Password is required");
-                }
-                if(password.length()<=6){
-                    Password.setError("Password must have more than 6 characters");
-                }
-                progressBar.setVisibility(View.VISIBLE);
 
-                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(loginpage1.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-
-                        }else{
-                            Toast.makeText(loginpage1.this, "Error! password or email is incorrect"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),loginpage1.class));
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
             }
         });
+
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

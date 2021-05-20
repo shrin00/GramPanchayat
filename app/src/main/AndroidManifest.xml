@@ -10,8 +10,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Gramlogin">
-        <activity android:name=".Pdo_main"></activity>
+        android:theme="@style/Theme.Gramlogin"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Account"></activity>
+        <activity android:name=".Pdo_main" />
         <activity android:name=".loginpage1" />
         <activity android:name=".register" />
         <activity android:name=".MainActivity">

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PageAdapter pageAdapter;
     private Toolbar toolbar;
+
+
+    //firebase authentication instance
+    private FirebaseAuth mFirebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         toolbar = (Toolbar) findViewById(R.id.id_toolbar);
         setSupportActionBar(toolbar);
+
+        //firebase instance
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
         //pageadapter class instence
         pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -67,11 +76,7 @@ public class MainActivity extends AppCompatActivity {
         //listener for slide screen
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
-//    public void LogOut(View view){
-//        FirebaseAuth.getInstance().signOut();
-//        startActivity(new Intent(getApplicationContext(),loginpage1.class));
-//        finish();
-//    }
+
 
 
     @Override
@@ -86,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.item_account:
+                Intent acc = new Intent(MainActivity.this, Account.class);
+                acc.putExtra("email", mFirebaseAuth.getCurrentUser().getEmail());
+                acc.putExtra("UID", mFirebaseAuth.getCurrentUser().getUid());
+                startActivity(acc);
+
                 Toast.makeText(this, "Account is selected", Toast.LENGTH_SHORT).show();
                 return true;
 
@@ -100,5 +110,17 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+        if(currentUser != null){
+            currentUser.reload();
+        }else {
+            startActivity(new Intent(this, loginpage1.class));
+        }
     }
 }
