@@ -1,22 +1,23 @@
 package com.example.gramlogin;
 
 public class UserProfile {
-    String name, contactNo, dob, sex, usertype;
+    String name, contactNo, dob, sex;
+    boolean isAdmin;
 
-    public UserProfile(String name, String contactNo, String dob, String sex, String usertype) {
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public UserProfile(String name, String contactNo, String dob, String sex, boolean isAdmin) {
         this.name = name;
         this.contactNo = contactNo;
         this.dob = dob;
         this.sex = sex;
-        this.usertype = usertype;
-    }
-
-    public String getUsertype() {
-        return usertype;
-    }
-
-    public void setUsertype(String usertype) {
-        this.usertype = usertype;
+        this.isAdmin = isAdmin;
     }
 
     public String getName() {

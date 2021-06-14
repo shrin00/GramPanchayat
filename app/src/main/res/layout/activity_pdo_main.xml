@@ -45,4 +45,18 @@
         android:layout_marginLeft="10dp"
         android:id="@+id/id_add_news"/>
 
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOGOUT"
+        android:textSize="15sp"
+        android:textColor="@color/purple_700"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/id_logOut"/>
+
 </LinearLayout>

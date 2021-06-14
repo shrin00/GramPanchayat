@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class loginpage1 extends AppCompatActivity {
 
@@ -26,6 +32,8 @@ public class loginpage1 extends AppCompatActivity {
     private  TextView mCreateBtn;
     private  ProgressBar pb;
     private FirebaseAuth mAuth;
+    private FirebaseDatabase db;
+    private DatabaseReference userReference;
 
 
     @Override
@@ -47,10 +55,10 @@ public class loginpage1 extends AppCompatActivity {
                 String password = tPassword.getEditText().getText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
-                    tEmail.setError("Email is required");
-                }else if(TextUtils.isEmpty(password)){
+                 }else if(TextUtils.isEmpty(password)){
                     tPassword.setError("Password is required");
                 }else if(password.length()<=6){
+                    tEmail.setError("Email is required");
                     tPassword.setError("Password must have more than 6 characters");
                 }else {
                     pb.setVisibility(View.VISIBLE);
@@ -60,7 +68,9 @@ public class loginpage1 extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
                                         pb.setVisibility(View.INVISIBLE);
+//                                       checkUserType(mAuth.getCurrentUser().getUid());
                                         startActivity(new Intent(loginpage1.this, MainActivity.class));
+                                        finish();
                                     }else{
                                         pb.setVisibility(View.INVISIBLE);
                                         tEmail.getEditText().setText("");
@@ -81,4 +91,29 @@ public class loginpage1 extends AppCompatActivity {
             }
         });
     }
+
+//    public void checkUserType(String uid) {
+//        db = FirebaseDatabase.getInstance();
+//        userReference = db.getReference().child("users").child(uid);
+//        userReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()){
+//                    if (snapshot.child("admin").exists()){
+//                        boolean isAdmin = (boolean) snapshot.child("admin").getValue();
+//                        if (isAdmin){
+//                            startActivity(new Intent(loginpage1.this, Pdo_main.class));
+//                            finish();
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
+
 }

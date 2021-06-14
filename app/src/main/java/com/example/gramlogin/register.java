@@ -96,6 +96,7 @@ public class register extends AppCompatActivity {
                                             Toast.makeText(register.this, "Register successful, Please Login", Toast.LENGTH_SHORT).show();
                                             mAuth.signOut();
                                             startActivity(new Intent(register.this, loginpage1.class));
+                                            finish();
                                         } else {
                                             // If sign in fails, display a message to the user.
                                             pb.setVisibility(View.INVISIBLE);
@@ -136,7 +137,7 @@ public class register extends AppCompatActivity {
         String dob = tDob.getEditText().getText().toString();
         String sex = tSex.getEditText().getText().toString();
 
-        UserProfile user = new UserProfile(name, contactNo, dob, sex, "user");
+        UserProfile user = new UserProfile(name, contactNo, dob, sex, false);
         userProfileReference.child(userId).setValue(user);
     }
 }

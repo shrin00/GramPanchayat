@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             currentUser.reload();
         }else {
             startActivity(new Intent(this, loginpage1.class));
+            finish();
         }
     }
 }
