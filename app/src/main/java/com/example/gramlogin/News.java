@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 /**
@@ -29,6 +32,7 @@ public class News extends Fragment {
     private String mParam2;
     //recycleview object
     RecyclerView  mNewsRecycleView;
+    RecyclerAdapter mRecyclerAdapter;
     //Array list of type NewsData
     ArrayList<NewsData> dataHolder;
 
@@ -68,35 +72,33 @@ public class News extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_news, container, false);
+
         mNewsRecycleView = view.findViewById(R.id.news_recycleview);
         mNewsRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        dataHolder = new ArrayList<>();
 
-        NewsData ob1 = new NewsData("Hello world", "this is just an example");
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
+        //reading data from firebasedatabase
+        FirebaseRecyclerOptions<NewsData> options =
+                new FirebaseRecyclerOptions.Builder<NewsData>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("news"), NewsData.class)
+                        .build();
 
-        mNewsRecycleView.setAdapter(new RecyclerAdapter(dataHolder));
+        mRecyclerAdapter = new RecyclerAdapter(options, getContext());
+        mNewsRecycleView.setAdapter(mRecyclerAdapter);
+
 
         return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mRecyclerAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mRecyclerAdapter.stopListening();
+    }
+
 }

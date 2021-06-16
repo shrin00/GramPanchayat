@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gramlogin"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Account"></activity>
+        <activity android:name=".Newsdetails"></activity>
+        <activity android:name=".Account" />
         <activity android:name=".Pdo_main" />
         <activity android:name=".loginpage1" />
         <activity android:name=".register" />

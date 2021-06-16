@@ -68,32 +68,32 @@ public class Services extends Fragment {
         View view = inflater.inflate(R.layout.fragment_services, container, false);
         ServicesRecycleView = (RecyclerView) view.findViewById(R.id.services_recycleview);
         ServicesRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        dataHolder = new ArrayList<>();
-
-        NewsData ob1 = new NewsData("Hello ", "this is ");
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-
-        ServicesRecycleView.setAdapter(new RecyclerAdapter(dataHolder));
+//        dataHolder = new ArrayList<>();
+//
+//        NewsData ob1 = new NewsData("Hello ", "this is ");
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//
+//        ServicesRecycleView.setAdapter(new RecyclerAdapter(dataHolder));
 
         return view;
     }

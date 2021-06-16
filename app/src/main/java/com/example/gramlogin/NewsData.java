@@ -1,26 +1,38 @@
 package com.example.gramlogin;
 
 public class NewsData {
-    String heading, desc;
+    String heading, about, detail;
 
-    public NewsData(String heading, String desc) {
+    public NewsData() {
+    }
+
+    public NewsData(String heading, String about, String detail) {
         this.heading = heading;
-        this.desc = desc;
+        this.about = about;
+        this.detail = detail;
     }
 
     public String getHeading() {
         return heading;
     }
 
-    public String getDesc() {
-        return desc;
-    }
-
     public void setHeading(String heading) {
         this.heading = heading;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String details) {
+        this.detail = details;
     }
 }

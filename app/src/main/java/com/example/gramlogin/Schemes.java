@@ -68,32 +68,32 @@ public class Schemes extends Fragment {
         View view = inflater.inflate(R.layout.fragment_schemes, container, false);
         SchemesRecyclerView = (RecyclerView) view.findViewById(R.id.schemes_recycleview);
         SchemesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        dataHolder = new ArrayList<>();
-
-        NewsData ob1 = new NewsData("Hello India", "this is Hard time");
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-        dataHolder.add(ob1);
-
-        SchemesRecyclerView.setAdapter(new RecyclerAdapter(dataHolder));
+//        dataHolder = new ArrayList<>();
+//
+//        NewsData ob1 = new NewsData("Hello India", "this is Hard time", "hello ");
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//        dataHolder.add(ob1);
+//
+//        SchemesRecyclerView.setAdapter(new RecyclerAdapter(dataHolder));
 
         return view;
 
