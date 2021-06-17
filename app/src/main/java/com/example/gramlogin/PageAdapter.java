@@ -19,8 +19,7 @@ public class PageAdapter extends FragmentPagerAdapter {
         //Code to switch between fragments when respective tab selected
         switch (position){
             case 0: return new Services();
-            case 1: return new Schemes();
-            case 2: return new News();
+            case 1: return new News();
             default: return null;
         }
     }

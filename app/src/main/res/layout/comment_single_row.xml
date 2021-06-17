@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView app:cardUseCompatPadding="true"
+    android:elevation="8dp"
+    app:cardCornerRadius="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:padding="15dp">
+
+        <ImageView
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:src="@drawable/profile"
+            android:id="@+id/cuimage" />
+
+        <TextView
+            android:id="@+id/cuname"
+            android:layout_width="281dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/cuimage"
+            android:text="User Name"
+            android:textColor="#000"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cumessage"
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cuname"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/cuimage"
+            android:text="This is Message"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/cudt"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/cuimage"
+            android:textColor="#000"
+            android:textSize="10sp"
+            android:text="Date and Time"
+            android:layout_below="@id/cumessage" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

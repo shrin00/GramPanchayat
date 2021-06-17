@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private TabItem  tab_services, tab_schemes, tab_news;
+    private TabItem  tab_services, tab_news;
     private ViewPager viewPager;
     private PageAdapter pageAdapter;
     private Toolbar toolbar;
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tabLayout = (TabLayout) findViewById(R.id.tablayout1);
         tab_services = (TabItem) findViewById(R.id.tabitem_services);
-        tab_schemes = (TabItem) findViewById(R.id.tabitem_schemes);
         tab_news = (TabItem) findViewById(R.id.tabitem_news);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         toolbar = (Toolbar) findViewById(R.id.id_toolbar);
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 //sets data on view pager from selected position fragments
                 viewPager.setCurrentItem(tab.getPosition());
-                if (tab.getPosition() == 0 || tab.getPosition() == 1 || tab.getPosition() == 2){
+                if (tab.getPosition() == 0 || tab.getPosition() == 1){
                     pageAdapter.notifyDataSetChanged();
                 }
             }

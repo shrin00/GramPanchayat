@@ -33,6 +33,7 @@ public class News extends Fragment {
     //recycleview object
     RecyclerView  mNewsRecycleView;
     RecyclerAdapter mRecyclerAdapter;
+
     //Array list of type NewsData
     ArrayList<NewsData> dataHolder;
 
@@ -76,6 +77,7 @@ public class News extends Fragment {
         mNewsRecycleView = view.findViewById(R.id.news_recycleview);
         mNewsRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
         //reading data from firebasedatabase
         FirebaseRecyclerOptions<NewsData> options =
                 new FirebaseRecyclerOptions.Builder<NewsData>()
@@ -93,6 +95,8 @@ public class News extends Fragment {
     public void onStart() {
         super.onStart();
         mRecyclerAdapter.startListening();
+
+
     }
 
     @Override
