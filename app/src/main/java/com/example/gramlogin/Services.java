@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 /**
@@ -28,6 +31,7 @@ public class Services extends Fragment {
     private String mParam1;
     private String mParam2;
     RecyclerView ServicesRecycleView;
+    ServiceRecycler mServiceRecycler;
     ArrayList<NewsData> dataHolder;
 
     public Services() {
@@ -66,35 +70,32 @@ public class Services extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_services, container, false);
+
         ServicesRecycleView = (RecyclerView) view.findViewById(R.id.services_recycleview);
         ServicesRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        dataHolder = new ArrayList<>();
-//
-//        NewsData ob1 = new NewsData("Hello ", "this is ");
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//        dataHolder.add(ob1);
-//
-//        ServicesRecycleView.setAdapter(new RecyclerAdapter(dataHolder));
+
+        FirebaseRecyclerOptions<ServiceModel> options =
+                new FirebaseRecyclerOptions.Builder<ServiceModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Services"), ServiceModel.class)
+                        .build();
+
+        mServiceRecycler = new ServiceRecycler(options, getContext());
+        ServicesRecycleView.setAdapter(mServiceRecycler);
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mServiceRecycler.startListening();
+
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mServiceRecycler.stopListening();
     }
 }

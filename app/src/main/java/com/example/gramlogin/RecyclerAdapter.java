@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends FirebaseRecyclerAdapter<NewsData, RecyclerAdapter.myviewholder> {
-
+    //adapter for news
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
