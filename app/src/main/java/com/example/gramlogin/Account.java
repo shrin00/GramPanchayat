@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Account extends AppCompatActivity {
-    private TextView userEmail, userName, userSex, userContactNo, userDob;
+    private TextView userEmail, userName, userSex, userContactNo, userDob, userAadhar, userAddress, userPincode;
     private Button logout;
     private String userId;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
@@ -34,6 +34,9 @@ public class Account extends AppCompatActivity {
         userSex = (TextView) findViewById(R.id.id_profileSex);
         userContactNo = (TextView) findViewById(R.id.id_profileContactNo);
         userDob = (TextView) findViewById(R.id.id_profileDob);
+        userAadhar = (TextView) findViewById(R.id.id_profileAadhar);
+        userPincode = (TextView) findViewById(R.id.id_profilePincode);
+        userAddress = (TextView) findViewById(R.id.id_profileAddress);
         logout = (Button) findViewById(R.id.id_logout);
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +64,9 @@ public class Account extends AppCompatActivity {
                     userContactNo.setText(snapshot.child("contactNo").getValue().toString());
                     userSex.setText(snapshot.child("sex").getValue().toString());
                     userDob.setText(snapshot.child("dob").getValue().toString());
+                    userAadhar.setText(snapshot.child("aadhar").getValue().toString());
+                    userPincode.setText(snapshot.child("pincode").getValue().toString());
+                    userAddress.setText(snapshot.child("address").getValue().toString());
                 }
             }
 

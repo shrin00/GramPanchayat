@@ -11,7 +11,8 @@
         android:roundIcon="@drawable/kg"
         android:supportsRtl="true"
         android:theme="@style/Theme.Gramlogin"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustResize">
         <activity android:name=".ServiceForm"></activity>
         <activity android:name=".Newsdetails" />
         <activity android:name=".Account" />

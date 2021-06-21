@@ -8,30 +8,29 @@
 
     <TextView
         android:id="@+id/id_headingNews"
-        android:layout_width="234dp"
-        android:layout_height="43dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="TextView"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintVertical_bias="0.022" />
 
     <TextView
         android:id="@+id/id_detailedNews"
-        android:layout_width="328dp"
-        android:layout_height="303dp"
-        android:layout_marginLeft="10dp"
-        android:gravity="top|left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/id_commentRecview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.373"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.162" />
+        app:layout_constraintTop_toBottomOf="@+id/id_headingNews" />
 
     <EditText
         android:id="@+id/id_addComment"
@@ -39,14 +38,13 @@
         android:layout_height="50dp"
         android:ems="10"
         android:gravity="start|top"
-        android:inputType="textMultiLine"
         android:hint="Add Comment here...."
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/id_submitComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.642"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.885" />
+        app:layout_constraintTop_toBottomOf="@+id/id_commentRecview" />
 
     <Button
         android:id="@+id/id_submitComment"
@@ -57,19 +55,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.973" />
+        app:layout_constraintTop_toBottomOf="@+id/id_addComment" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="332dp"
-        android:layout_height="165dp"
         android:id="@+id/id_commentRecview"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/id_addComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.728">
+        app:layout_constraintTop_toBottomOf="@+id/id_detailedNews">
 
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -35,7 +35,7 @@ import java.util.Random;
 public class ServiceForm extends AppCompatActivity {
     private LinearLayout serviceform;
     private String postkey;
-    private DatabaseReference requiredref, applicationref;
+    private DatabaseReference requiredref, applicationref, userprofileref;
     private TextView hello;
     private Button submitform;
     private ProgressBar pb;
@@ -50,6 +50,7 @@ public class ServiceForm extends AppCompatActivity {
         submitform = (Button) findViewById(R.id.id_servirform_submit);
         pb = (ProgressBar) findViewById(R.id.service_progressBar);
         postkey = getIntent().getStringExtra("postkey");
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
 
@@ -60,7 +61,6 @@ public class ServiceForm extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snap: snapshot.getChildren()){
-                    Log.d("Hello world", (String) snap.getValue());
                     fields.add(snap.getValue().toString());
                 }
                 addfields(fields);
@@ -72,6 +72,22 @@ public class ServiceForm extends AppCompatActivity {
             }
         });
 
+
+        HashMap ser = new HashMap();
+        userprofileref = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+        userprofileref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               for (DataSnapshot snap : snapshot.getChildren()){
+                   ser.put(snap.getKey().toString(), snap.getValue().toString());
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         applicationref = FirebaseDatabase.getInstance().getReference().child("Services").child(postkey).child("Applications");
         submitform.setOnClickListener(new View.OnClickListener() {
@@ -85,11 +101,11 @@ public class ServiceForm extends AppCompatActivity {
                 SimpleDateFormat timeForm = new SimpleDateFormat("HH:mm");
                 String ctime = timeForm.format(datevalue.getTime());
 
-                HashMap ser = new HashMap();
                 for (EditText i:ed){
                     ser.put(i.getHint().toString(), i.getText().toString());
                 }
                 ser.put("uid", userId);
+                ser.put("email", user.getEmail().toString());
                 ser.put("date", cdate);
                 ser.put("time", ctime);
 
@@ -112,10 +128,14 @@ public class ServiceForm extends AppCompatActivity {
         for (String i:fields){
             EditText newview = new EditText(getApplicationContext());
             ed.add(newview);
-            newview.setLayoutParams(new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams params = (new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             ));
+
+            params.setMargins(0, 10, 0, 10);
+            newview.setLayoutParams(params);
+
             newview.setHint(i);
             newview.setBackgroundColor(getResources().getColor(R.color.Lightyellow));
             newview.setElevation(10);

@@ -72,5 +72,32 @@
             android:layout_margin="10dp"
             android:id="@+id/id_profileEmail"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aadhar No"
+            android:textAllCaps="true"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:id="@+id/id_profileAadhar"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pincode"
+            android:textAllCaps="true"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:id="@+id/id_profilePincode"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textAllCaps="true"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:id="@+id/id_profileAddress"/>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

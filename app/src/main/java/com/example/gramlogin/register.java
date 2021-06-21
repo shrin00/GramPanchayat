@@ -29,7 +29,7 @@ import java.sql.BatchUpdateException;
 
 public class register extends AppCompatActivity {
 
-    private TextInputLayout tEmail, tPassword, tConfirmPassword, tName, tContact, tDob, tSex;
+    private TextInputLayout tEmail, tPassword, tConfirmPassword, tName, tContact, tDob, tSex, tAddress, tAadhar, tPincode;
     private ProgressBar pb;
     private Button register;
     private TextView alSignIn;
@@ -56,6 +56,9 @@ public class register extends AppCompatActivity {
         tContact = (TextInputLayout) findViewById(R.id.id_contactNo);
         tDob = (TextInputLayout) findViewById(R.id.id_dob);
         tSex = (TextInputLayout) findViewById(R.id.id_sex);
+        tAddress =(TextInputLayout) findViewById(R.id.id_address);
+        tAadhar = (TextInputLayout) findViewById(R.id.id_aadharno);
+        tPincode = (TextInputLayout) findViewById(R.id.id_pincode);
         pb = (ProgressBar) findViewById(R.id.progressBar2);
         register = (Button) findViewById(R.id.id_register);
         alSignIn = (TextView) findViewById(R.id.id_signInRegister);
@@ -135,9 +138,12 @@ public class register extends AppCompatActivity {
         String name = tName.getEditText().getText().toString();
         String contactNo = tContact.getEditText().getText().toString();
         String dob = tDob.getEditText().getText().toString();
+        String aadhar = tAadhar.getEditText().getText().toString();
+        String address = tAddress.getEditText().getText().toString();
+        String pincode = tPincode.getEditText().getText().toString();
         String sex = tSex.getEditText().getText().toString();
 
-        UserProfile user = new UserProfile(name, contactNo, dob, sex, false);
+        UserProfile user = new UserProfile(name, contactNo, dob, sex, aadhar, address, pincode, false);
         userProfileReference.child(userId).setValue(user);
     }
 }
