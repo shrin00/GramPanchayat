@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView app:cardUseCompatPadding="true"
+<androidx.cardview.widget.CardView
+    app:cardUseCompatPadding="true"
     android:elevation="8dp"
     app:cardCornerRadius="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"

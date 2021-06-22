@@ -19,6 +19,7 @@
         app:layout_constraintVertical_bias="0.887" />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="342dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -30,74 +31,86 @@
         app:layout_constraintVertical_bias="0.248">
 
         <TextView
+            android:id="@+id/id_profileName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="Full Name"
             android:textAllCaps="true"
-            android:textSize="25sp"
-            android:layout_margin="10dp"
-            android:id="@+id/id_profileName"/>
+            android:textSize="25sp" />
 
         <TextView
+            android:id="@+id/id_profileContactNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="Contact No"
-            android:textSize="15sp"
-            android:layout_margin="10dp"
-            android:id="@+id/id_profileContactNo"/>
+            android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/id_profileDob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="Date of birth"
-            android:textSize="15sp"
-            android:layout_margin="10dp"
-            android:id="@+id/id_profileDob"/>
+            android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/id_profileSex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="Sex"
             android:textAllCaps="true"
-            android:textSize="15sp"
-            android:layout_margin="10dp"
-            android:id="@+id/id_profileSex"/>
+            android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/id_profileEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="Email"
             android:textAllCaps="true"
-            android:textSize="15sp"
-            android:layout_margin="10dp"
-            android:id="@+id/id_profileEmail"/>
+            android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/id_profileAadhar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="Aadhar No"
             android:textAllCaps="true"
-            android:textSize="15sp"
-            android:layout_margin="10dp"
-            android:id="@+id/id_profileAadhar"/>
+            android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/id_profilePincode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="Pincode"
             android:textAllCaps="true"
-            android:textSize="15sp"
-            android:layout_margin="10dp"
-            android:id="@+id/id_profilePincode"/>
+            android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/id_profileAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="Address"
             android:textAllCaps="true"
-            android:textSize="15sp"
-            android:layout_margin="10dp"
-            android:id="@+id/id_profileAddress"/>
+            android:textSize="15sp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/id_account_viewapplication"
+        android:layout_width="338dp"
+        android:layout_height="64dp"
+        android:text="View Submitted application"
+        app:layout_constraintBottom_toTopOf="@+id/id_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.539" />
 </androidx.constraintlayout.widget.ConstraintLayout>

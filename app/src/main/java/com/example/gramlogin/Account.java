@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Account extends AppCompatActivity {
     private TextView userEmail, userName, userSex, userContactNo, userDob, userAadhar, userAddress, userPincode;
-    private Button logout;
+    private Button logout, viewapplication;
     private String userId;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mUserReference;
@@ -37,7 +37,15 @@ public class Account extends AppCompatActivity {
         userAadhar = (TextView) findViewById(R.id.id_profileAadhar);
         userPincode = (TextView) findViewById(R.id.id_profilePincode);
         userAddress = (TextView) findViewById(R.id.id_profileAddress);
+        viewapplication = (Button) findViewById(R.id.id_account_viewapplication);
         logout = (Button) findViewById(R.id.id_logout);
+
+        viewapplication.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), UserApplication.class));
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

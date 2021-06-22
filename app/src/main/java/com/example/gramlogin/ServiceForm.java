@@ -104,7 +104,6 @@ public class ServiceForm extends AppCompatActivity {
                 for (EditText i:ed){
                     ser.put(i.getHint().toString(), i.getText().toString());
                 }
-                ser.put("uid", userId);
                 ser.put("email", user.getEmail().toString());
                 ser.put("date", cdate);
                 ser.put("time", ctime);

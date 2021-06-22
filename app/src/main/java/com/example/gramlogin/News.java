@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link News#newInstance} factory method to
@@ -33,9 +31,6 @@ public class News extends Fragment {
     //recycleview object
     RecyclerView  mNewsRecycleView;
     RecyclerAdapter mRecyclerAdapter;
-
-    //Array list of type NewsData
-    ArrayList<NewsData> dataHolder;
 
     public News() {
         // Required empty public constructor
