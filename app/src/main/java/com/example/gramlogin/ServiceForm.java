@@ -1,8 +1,10 @@
 package com.example.gramlogin;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,25 +36,28 @@ import java.util.Random;
 
 public class ServiceForm extends AppCompatActivity {
     private LinearLayout serviceform;
-    private String postkey;
+    private String postkey, fees, usercontactno;
     private DatabaseReference requiredref, applicationref, userprofileref;
     private TextView hello;
     private Button submitform;
     private ProgressBar pb;
     ArrayList<String> fields = new ArrayList<>();
     List<EditText> ed = new ArrayList<EditText>();
+    HashMap ser = new HashMap();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String userId = user.getUid();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_form);
+
         serviceform = (LinearLayout) findViewById(R.id.id_serviceformlayout);
         hello = (TextView) findViewById(R.id.hello_world);
         submitform = (Button) findViewById(R.id.id_servirform_submit);
         pb = (ProgressBar) findViewById(R.id.service_progressBar);
         postkey = getIntent().getStringExtra("postkey");
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = user.getUid();
+        fees = getIntent().getStringExtra("fees");
 
         hello.setText(getIntent().getStringExtra("servicename"));
 
@@ -72,12 +77,11 @@ public class ServiceForm extends AppCompatActivity {
             }
         });
 
-
-        HashMap ser = new HashMap();
         userprofileref = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
         userprofileref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usercontactno = snapshot.child("contactNo").getValue().toString();
                for (DataSnapshot snap : snapshot.getChildren()){
                    ser.put(snap.getKey().toString(), snap.getValue().toString());
                }
@@ -108,18 +112,40 @@ public class ServiceForm extends AppCompatActivity {
                 ser.put("date", cdate);
                 ser.put("time", ctime);
 
+                Intent pyintent = new Intent(getApplicationContext(), Payments.class);
+                pyintent.putExtra("email", user.getEmail().toString());
+                pyintent.putExtra("contactno", usercontactno);
+                pyintent.putExtra("fees", fees);
+                startActivityForResult(pyintent, 1);
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
                 applicationref.child(userId).updateChildren(ser)
                         .addOnCompleteListener(new OnCompleteListener() {
                             @Override
                             public void onComplete(@NonNull Task task) {
                                 pb.setVisibility(View.INVISIBLE);
-                                Toast.makeText(getApplicationContext(), "Form submitted successfully...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Payment successfull and Form submitted successfully...", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
                             }
                         });
             }
-        });
+
+            if (resultCode == RESULT_CANCELED){
+                Toast.makeText(getApplicationContext(), "form is not submitted try again...", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+            }
+        }
 
     }
 

@@ -100,9 +100,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Complaint is clicked", Toast.LENGTH_SHORT).show();
                 return true;
 
-            case R.id.item_pdo:
-                Intent pdo_activity = new Intent(this, Pdo_main.class);
-                startActivity(pdo_activity);
+            case R.id.item_tax:
+                startActivity(new Intent(getApplicationContext(), Paytax.class));
                 Toast.makeText(MainActivity.this, "PDO is clicked", Toast.LENGTH_SHORT).show();
                 return true;
         }

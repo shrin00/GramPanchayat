@@ -13,11 +13,12 @@
         android:theme="@style/Theme.Gramlogin"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".UserApplication"></activity>
+        <activity android:name=".Paytax"></activity>
+        <activity android:name=".Payments" />
+        <activity android:name=".UserApplication" />
         <activity android:name=".ServiceForm" />
         <activity android:name=".Newsdetails" />
         <activity android:name=".Account" />
-        <activity android:name=".Pdo_main" />
         <activity android:name=".loginpage1" />
         <activity android:name=".register" />
         <activity android:name=".MainActivity">
