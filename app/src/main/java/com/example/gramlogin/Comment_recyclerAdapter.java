@@ -26,7 +26,7 @@ public class Comment_recyclerAdapter extends FirebaseRecyclerAdapter<Comment_mod
 
     @Override
     protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull Comment_model model) {
-        String cudt = model.getTime()+""+model.getDate();
+        String cudt = model.getTime()+" "+model.getDate();
 
         holder.cuname.setText(model.getName());
         holder.cumessage.setText(model.getUsermsg());

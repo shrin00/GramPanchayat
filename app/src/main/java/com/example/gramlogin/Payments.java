@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 public class Payments extends AppCompatActivity implements PaymentResultListener {
 
+    String fees;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,7 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
         Checkout.preload(getApplicationContext());
 
         Intent intent = getIntent();
-        String fees = intent.getStringExtra("fees");
+        fees = intent.getStringExtra("fees");
         String email = intent.getStringExtra("email");
         String contactno = intent.getStringExtra("contactno");
 
@@ -73,6 +74,7 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
     public void onPaymentSuccess(String s) {
         Intent resultIntent = new Intent();
         resultIntent.putExtra("key", s);
+        resultIntent.putExtra("fees", fees);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
