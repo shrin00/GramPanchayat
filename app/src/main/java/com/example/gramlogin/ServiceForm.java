@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +30,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,14 +50,18 @@ import java.util.Random;
 
 public class ServiceForm extends AppCompatActivity {
     private LinearLayout serviceform;
-    private String postkey, fees, usercontactno;
-    private DatabaseReference requiredref, applicationref, userprofileref;
+    private String postkey, fees, usercontactno, NAME;
+    private DatabaseReference requiredref, applicationref, userprofileref, fileref;
     private TextView hello;
-    private Button submitform;
+    private Button submitform, pointerButton;
     private ProgressBar pb;
+    Uri filepath;
     ArrayList<String> fields = new ArrayList<>();
+    ArrayList<String> files = new ArrayList<>();
     List<EditText> ed = new ArrayList<EditText>();
+    List<Button> bt = new ArrayList<Button>();
     HashMap ser = new HashMap();
+    HashMap fi = new HashMap();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String userId = user.getUid();
 
@@ -62,6 +80,7 @@ public class ServiceForm extends AppCompatActivity {
         hello.setText(getIntent().getStringExtra("servicename"));
 
         requiredref = FirebaseDatabase.getInstance().getReference().child("Services").child(postkey).child("required");
+        fileref = FirebaseDatabase.getInstance().getReference().child("Services").child(postkey).child("files");
         requiredref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -69,6 +88,21 @@ public class ServiceForm extends AppCompatActivity {
                     fields.add(snap.getValue().toString());
                 }
                 addfields(fields);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        fileref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snap: snapshot.getChildren()){
+                    files.add(snap.getValue().toString());
+                }
+                addFiles(files);
             }
 
             @Override
@@ -92,6 +126,37 @@ public class ServiceForm extends AppCompatActivity {
 
             }
         });
+
+//        for (Button b: bt){
+//            b.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Dexter.withContext(getApplicationContext())
+//                            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+//                            .withListener(new PermissionListener() {
+//                                @Override
+//                                public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+//                                    Intent intent = new Intent();
+//                                    intent.putExtra("name", b.getText().toString());
+//                                    intent.setType("application/pdf");
+//                                    intent.setAction(Intent.ACTION_GET_CONTENT);
+//                                    startActivityForResult(Intent.createChooser(intent, "select files"), 101);
+//                                }
+//
+//                                @Override
+//                                public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+//                                    permissionToken.continuePermissionRequest();
+//                                }
+//                            }).check();
+//                }
+//            });
+//        }
+
 
         applicationref = FirebaseDatabase.getInstance().getReference().child("Services").child(postkey).child("Applications");
         submitform.setOnClickListener(new View.OnClickListener() {
@@ -126,16 +191,33 @@ public class ServiceForm extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d("TAG", "onActivityResult: " + data.getStringExtra("name"));
+
+        if (requestCode == 101 && resultCode == RESULT_OK){
+                filepath = data.getData();
+//                System.out.println("Hello world"+NAME);
+//                System.out.println("Hello "+data);
+                uploadprocess(filepath, NAME);
+                pointerButton.setVisibility(View.INVISIBLE);
+        }
+
         if (requestCode == 1){
             if (resultCode == RESULT_OK){
                 applicationref.child(userId).updateChildren(ser)
                         .addOnCompleteListener(new OnCompleteListener() {
                             @Override
                             public void onComplete(@NonNull Task task) {
-                                pb.setVisibility(View.INVISIBLE);
-                                Toast.makeText(getApplicationContext(), "Payment successfull and Form submitted successfully...", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
+                                applicationref.child(userId).child("Files").updateChildren(fi)
+                                .addOnCompleteListener(new OnCompleteListener() {
+                                    @Override
+                                    public void onComplete(@NonNull Task task) {
+                                        pb.setVisibility(View.INVISIBLE);
+                                        Toast.makeText(getApplicationContext(), "Payment successfull and Form submitted successfully...", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        finish();
+                                    }
+                                });
                             }
                         });
             }
@@ -166,6 +248,84 @@ public class ServiceForm extends AppCompatActivity {
             newview.setElevation(10);
             serviceform.addView(newview);
         }
+    }
+
+    public  void  addFiles(ArrayList<String> file){
+        for (String i: file){
+            Button newview = new Button(getApplicationContext());
+            bt.add(newview);
+            LinearLayout.LayoutParams params = (new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            params.setMargins(0, 10, 0, 10);
+            newview.setLayoutParams(params);
+
+            newview.setHint(i);
+            newview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Dexter.withContext(getApplicationContext())
+                            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                            .withListener(new PermissionListener() {
+                                @Override
+                                public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                                    NAME = i;
+                                    pointerButton = newview;
+                                    Intent intent = new Intent();
+                                    intent.setType("application/pdf");
+                                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                                    startActivityForResult(Intent.createChooser(intent, "select files"), 101);
+                                }
+
+                                @Override
+                                public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+
+                                }
+
+                                @Override
+                                public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                                    permissionToken.continuePermissionRequest();
+                                }
+                            }).check();
+                }
+            });
+
+            newview.setText("upload "+i);
+            newview.setBackgroundColor(getResources().getColor(R.color.Lightyellow));
+            newview.setElevation(10);
+            serviceform.addView(newview);
+
+        }
+    }
+
+
+    public void  uploadprocess(Uri filepath, String name){
+        ProgressDialog  pb = new ProgressDialog(this);
+        pb.setTitle("File is uploading......!");
+        pb.show();
+
+        StorageReference reference = FirebaseStorage.getInstance().getReference().child("uploads/"+System.currentTimeMillis()+".pdf");
+        reference.putFile(filepath)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                fi.put(name, uri.toString());
+                                pb.dismiss();
+                            }
+                        });
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        float per = (100 * snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+                        pb.setMessage("Uploaded..."+(int) per+"%");
+                    }
+                });
     }
 
 }

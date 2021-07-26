@@ -21,11 +21,13 @@ import java.util.ArrayList;
 
 public class UserApplication extends AppCompatActivity {
 
-    private RecyclerView userapplicationrecview;
+    private RecyclerView userapplicationrecview, approvedrecview, rejectedrecview;
     UserApplicationAdapter useradapter;
     private FirebaseUser user;
-    private DatabaseReference applicationref, userapplicationsref;
+    private DatabaseReference applicationref, userapplicationsref, approvedref, rejectref;
     private ArrayList<UserApplicationModel> applications = new ArrayList<>();
+    private ArrayList<UserApplicationModel> approved = new ArrayList<>();
+    private ArrayList<UserApplicationModel> rejected = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,11 @@ public class UserApplication extends AppCompatActivity {
 
         userapplicationrecview = (RecyclerView) findViewById(R.id.userapplication_recview);
         userapplicationrecview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        approvedrecview = (RecyclerView) findViewById(R.id.application_approved_recview);
+        approvedrecview.setLayoutManager(new LinearLayoutManager((getApplicationContext())));
+        rejectedrecview = (RecyclerView) findViewById(R.id.application_rejected_recview);
+        rejectedrecview.setLayoutManager(new LinearLayoutManager((getApplicationContext())));
+
 
         applicationref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -43,29 +50,74 @@ public class UserApplication extends AppCompatActivity {
 
                 for (DataSnapshot snap: snapshot.getChildren()){
                     String servicename = snap.child("servicename").getValue().toString();
+                    Log.d("hello", servicename);
 
                     userapplicationsref = applicationref.child(snap.getKey().toString()).child("Applications").child(userId);
-                    userapplicationsref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                            if (snapshot1.exists()){
-                                String username, dat;
-                                username = snapshot1.child("name").getValue().toString();
-                                dat = snapshot1.child("date").getValue().toString()+" "+snapshot1.child("time").getValue().toString();
-                                applications.add(new UserApplicationModel(servicename, username, dat));
-                                for (UserApplicationModel i : applications){
-                                    Log.d("hello", i.getServicename()+" "+i.getUsername()+" "+ i.getDat());
-                                }
-                                useradapter = new UserApplicationAdapter(applications, getApplicationContext());
-                                userapplicationrecview.setAdapter(useradapter);
-                            }
-                        }
+                    userApplicationView(userapplicationsref, servicename, 0);
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    approvedref = applicationref.child(snap.getKey().toString()).child("Approved").child(userId);
+                    userApplicationView(approvedref, servicename, 1);
 
-                        }
-                    });
+                    rejectref = applicationref.child(snap.getKey().toString()).child("Rejected").child(userId);
+                    userApplicationView(rejectref, servicename, 2);
+
+//                    userapplicationsref.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot1) {
+//                            if (snapshot1.exists()){
+//                                String username, dat;
+//                                username = snapshot1.child("name").getValue().toString();
+//                                dat = snapshot1.child("date").getValue().toString()+" "+snapshot1.child("time").getValue().toString();
+//                                applications.add(new UserApplicationModel(servicename, username, dat));
+//                                for (UserApplicationModel i : applications){
+//                                    Log.d("hello", i.getServicename()+" "+i.getUsername()+" "+ i.getDat());
+//                                }
+//                                useradapter = new UserApplicationAdapter(applications, getApplicationContext());
+//                                userapplicationrecview.setAdapter(useradapter);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+                }
+
+                System.out.println("applications"+applications.size());
+                useradapter = new UserApplicationAdapter(applications, getApplicationContext());
+                userapplicationrecview.setAdapter(useradapter);
+                System.out.println("approved"+approved.size());
+                approvedrecview.setAdapter(new UserApplicationAdapter(approved, getApplicationContext()));
+                System.out.println("rejected"+rejected.size());
+                rejectedrecview.setAdapter(new UserApplicationAdapter(rejected, getApplicationContext()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+    }
+
+
+    public void userApplicationView(DatabaseReference ref, String servicename, int id){
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                if (snapshot1.exists()){
+                    String username, dat;
+                    username = snapshot1.child("name").getValue().toString();
+                    dat = snapshot1.child("date").getValue().toString()+" "+snapshot1.child("time").getValue().toString();
+
+                    if (id == 0){
+                        applications.add(new UserApplicationModel(servicename, username, dat));
+                    }
+                    if (id == 1){approved.add(new UserApplicationModel(servicename, username, dat));}
+                    if(id == 2){rejected.add(new UserApplicationModel(servicename, username, dat));}
                 }
             }
 
@@ -74,7 +126,6 @@ public class UserApplication extends AppCompatActivity {
 
             }
         });
-        
     }
 
 }

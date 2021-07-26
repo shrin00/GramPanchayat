@@ -3,6 +3,9 @@ package com.example.gramlogin;
 public class UserApplicationModel {
     String servicename, username, dat;
 
+    public UserApplicationModel() {
+    }
+
     public UserApplicationModel(String servicename, String username, String dat) {
         this.servicename = servicename;
         this.username = username;

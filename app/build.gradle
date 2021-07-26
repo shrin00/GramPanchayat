@@ -45,6 +45,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-database:20.0.0'
     implementation 'com.firebaseui:firebase-ui-database:7.2.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -71,6 +72,8 @@ dependencies {
 
     //razorpay
     implementation 'com.razorpay:checkout:1.6.6'
+
+    implementation 'com.karumi:dexter:6.2.3'
 }
 
 apply plugin: 'com.google.gms.google-services'

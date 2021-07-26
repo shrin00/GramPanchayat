@@ -35,12 +35,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="How are ayouo"
+            android:text="100"
             android:textSize="20sp"
+            android:layout_toRightOf="@id/id_rs"
+            android:layout_below="@id/heading_id"
+            android:layout_marginLeft="1dp"
+            android:id="@+id/decription_id"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs."
             android:layout_toRightOf="@id/image_id"
             android:layout_below="@id/heading_id"
             android:layout_marginLeft="10dp"
-            android:id="@+id/decription_id"/>
+            android:textSize="20sp"
+            android:id="@+id/id_rs"/>
 
     </RelativeLayout>
 

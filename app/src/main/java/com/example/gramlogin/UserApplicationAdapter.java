@@ -1,6 +1,7 @@
 package com.example.gramlogin;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class UserApplicationAdapter extends RecyclerView.Adapter<UserApplication
 
     @Override
     public int getItemCount() {
+//        Log.d("suze", String.valueOf(applications.size()));
         return applications.size();
     }
 
